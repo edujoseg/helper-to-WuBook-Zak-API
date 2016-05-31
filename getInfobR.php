@@ -1,7 +1,7 @@
 <?php
 header('Content-type: application/json');
-include "../phpxmlrpc/lib/xmlrpc.inc";
-require_once(__ROOT__ . '../config.php');
+include "./phpxmlrpc/lib/xmlrpc.inc";
+require_once(__ROOT__ . '/config.php');
 
 
 $fromDate = new DateTime($_POST["fromDate"]);
