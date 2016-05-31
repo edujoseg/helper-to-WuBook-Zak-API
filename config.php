@@ -4,6 +4,5 @@ $wbUser = "";
 $wbPassword = "";
 $wbLcode = "";
 $wbPkey = "";
-$sqLiteDB = "";
 
 ?>
