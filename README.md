@@ -1,12 +1,15 @@
 # helper-to-WuBook-Zak-API
 Small scripts as helper to complex requests to WuBook Zak API
 
-# a-captive-portal-for-Unifi
-Another Captive Portal for Unifi connected to WuBook Zak
+## Requirements
+
+- PHP > 5.x
+- XML support for PHP
+- XMLRPC for PHP (http://gggeek.github.io/phpxmlrpc/)
 
 ## Setting configuration
 
-Complete values into `config.php` script. `$sqLiteDB` is used only for autorization script, leave blank for `getInfobR.php`
+Complete values into `config.php` script.
 
 ## How to use `getInfobR.php`
 This script get invoices of reservations between dates fd (check-in date) and td (check-out date), using format DD-MM-YYYY
