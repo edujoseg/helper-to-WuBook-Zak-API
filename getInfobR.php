@@ -149,22 +149,7 @@ function releaseToken($token) {
 	$xmlrpc_message = new xmlrpcmsg('release_token', $params);
 	$xmlrpc_response = $xmlrpc_client->send($xmlrpc_message)->value();
 }
-/*function parserpi($string) {
-	$cc = 0;
-	$cash = 0;
-	$payments = explode(",", $string);
-	foreach ($payments as $payment) {
-		if (strpos($payment, "Credit")) {
-			$i = preg_replace("/(.*) Credit\/Debit\ card /", '', $payment);
-			$cc += preg_replace("/ (.*)$/", '', $i);
-		}
-		else if (strpos($payment, "Cash")) {
-			$i = preg_replace("/(.*) Cash /", '', $payment);
-			$cash += preg_replace("/ (.*)$/", '', $i);
-		}
-	}
-	return array("cc" => $cc, "cash" => $cash);
-}*/
+
 function parserpi($string) {
 	$total = array();
 	$payments = explode(",", $string);
