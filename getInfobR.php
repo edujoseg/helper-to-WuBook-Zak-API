@@ -3,13 +3,15 @@ header('Content-type: application/json');
 include "./phpxmlrpc/lib/xmlrpc.inc";
 require_once(__ROOT__ . '/config.php');
 
+try {
+	$fromDate = new DateTime($_POST["fromDate"]);
+	$toDate = new DateTime($_POST["toDate"] . " 23:59:59");
+} catch (Exception $e) {
+	echo array("error" => array("code" => "9", "message" => $e->getMessage()));
+    	return(0);
+}
 
-$fromDate = new DateTime($_POST["fromDate"]);
 $fromDate->sub(new DateInterval('P1D'));
-$toDate = new DateTime($_POST["toDate"] . " 23:59:59");
-
-
-
 $period = new DatePeriod(
 		$fromDate,
 		new DateInterval('P1D'),
