@@ -5,6 +5,7 @@ Small scripts as helper to complex requests to WuBook Zak API
 
 - PHP > 5.x
 - XML support for PHP
+- JSON support for PHP
 - XMLRPC for PHP (http://gggeek.github.io/phpxmlrpc/)
 
 ## Setting configuration
