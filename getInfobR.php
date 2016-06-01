@@ -40,9 +40,9 @@ foreach($period as $date){
         	new xmlrpcval($wbDate, 'string')
 	);
 	$xmlrpc_message = new xmlrpcmsg('fetch_reservations_day', $params);
-	$xmlrpc_response = $xmlrpc_client->send($xmlrpc_message)->value();
+	$xmlrpc_response = $xmlrpc_client->send($xmlrpc_message);
 	if (!checkResponse($xmlrpc_response)) return 0;
-	$lista = php_xmlrpc_decode($xmlrpc_response);
+	$lista = php_xmlrpc_decode($xmlrpc_response->value());
 	//array_walk_recursive($lista,'utf8_encode');
 	if ($rcounter++ > 20) {
 		releaseToken($wbToken);
@@ -68,9 +68,9 @@ foreach ($reservas_sd as $reserva) {
         	new xmlrpcval($rcode, 'string')
 	);
 	$xmlrpc_message = new xmlrpcmsg('fetch_invoices', $params);
-	$xmlrpc_response = $xmlrpc_client->send($xmlrpc_message)->value();
+	$xmlrpc_response = $xmlrpc_client->send($xmlrpc_message);
 	if (!checkResponse($xmlrpc_response)) return 0;
-	$lista = php_xmlrpc_decode($xmlrpc_response);
+	$lista = php_xmlrpc_decode($xmlrpc_response->value());
 	if ($rcounter++ > 20) {
 		releaseToken($wbToken);
 		$wbToken = getToken();
@@ -83,9 +83,9 @@ foreach ($reservas_sd as $reserva) {
                 	new xmlrpcval(array('ccode' => new xmlrpcval($ccode, 'string')), 'struct')
         );
 	$xmlrpc_message = new xmlrpcmsg('fetch_customer', $params);
-        $xmlrpc_response = $xmlrpc_client->send($xmlrpc_message)->value();
+        $xmlrpc_response = $xmlrpc_client->send($xmlrpc_message);
         if (!checkResponse($xmlrpc_response)) return 0;
-        $customer = php_xmlrpc_decode($xmlrpc_response);
+        $customer = php_xmlrpc_decode($xmlrpc_response->value());
 	$birthdate = $customer[0]["birthday"] . "/" . $customer[0]["birthmonth"] . "/" . $customer[0]["birthyear"];
 	foreach ($lista as $invoice) {
 		$vat_8 = isset($invoice["paidvats"]["8,0"])?$invoice["paidvats"]["8,0"]:"0";
