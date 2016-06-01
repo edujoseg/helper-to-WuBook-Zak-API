@@ -7,7 +7,12 @@ try {
 	$fromDate = new DateTime($_POST["fromDate"]);
 	$toDate = new DateTime($_POST["toDate"] . " 23:59:59");
 } catch (Exception $e) {
-	echo array("error" => array("code" => "9", "message" => $e->getMessage()));
+	echo json_encode(array(
+		"error" => array(
+			"code" => 99, 
+			"message" => $e->getMessage()
+		)
+	));
     	return(0);
 }
 
@@ -36,6 +41,7 @@ foreach($period as $date){
 	);
 	$xmlrpc_message = new xmlrpcmsg('fetch_reservations_day', $params);
 	$xmlrpc_response = $xmlrpc_client->send($xmlrpc_message)->value();
+	if (!checkResponse($xmlrpc_response)) return 0;
 	$lista = php_xmlrpc_decode($xmlrpc_response);
 	//array_walk_recursive($lista,'utf8_encode');
 	if ($rcounter++ > 20) {
@@ -63,6 +69,7 @@ foreach ($reservas_sd as $reserva) {
 	);
 	$xmlrpc_message = new xmlrpcmsg('fetch_invoices', $params);
 	$xmlrpc_response = $xmlrpc_client->send($xmlrpc_message)->value();
+	if (!checkResponse($xmlrpc_response)) return 0;
 	$lista = php_xmlrpc_decode($xmlrpc_response);
 	if ($rcounter++ > 20) {
 		releaseToken($wbToken);
@@ -77,6 +84,7 @@ foreach ($reservas_sd as $reserva) {
         );
 	$xmlrpc_message = new xmlrpcmsg('fetch_customer', $params);
         $xmlrpc_response = $xmlrpc_client->send($xmlrpc_message)->value();
+        if (!checkResponse($xmlrpc_response)) return 0;
         $customer = php_xmlrpc_decode($xmlrpc_response);
 	$birthdate = $customer[0]["birthday"] . "/" . $customer[0]["birthmonth"] . "/" . $customer[0]["birthyear"];
 	foreach ($lista as $invoice) {
@@ -162,6 +170,17 @@ function parserpi($string) {
 		}
 	}
 	return $total;
+}
+function checkResponse($response) {
+	if ($response->faultCode()) {
+		echo json_encode(array("error" => array(
+			"code" => htmlentities($response->faultCode()), 
+			"message" => htmlentities($response->faultString())
+		)));
+    		return (false);
+	} else {
+		return (true);
+	} 
 }
 
 ?>
