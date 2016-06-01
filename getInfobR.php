@@ -17,7 +17,6 @@ $period = new DatePeriod(
 		);
 
 $reservas = array();
-//$invoices = array();
 
 $rcounter = 0;
 
@@ -79,8 +78,6 @@ foreach ($reservas_sd as $reserva) {
         $customer = php_xmlrpc_decode($xmlrpc_response);
 	$birthdate = $customer[0]["birthday"] . "/" . $customer[0]["birthmonth"] . "/" . $customer[0]["birthyear"];
 	foreach ($lista as $invoice) {
-		//echo $reserva["customer"] . "," . $rcode . "," . date('d/m/Y', $reserva["dto"] + 57600) . "," . $invoice["sn"] . "\n";
-		//invoices[] = $invoice;
 		$vat_8 = isset($invoice["paidvats"]["8,0"])?$invoice["paidvats"]["8,0"]:"0";
 		$vat_16 = isset($invoice["paidvats"]["16,0"])?$invoice["paidvats"]["16,0"]:"0";
 		$pinfo = parserpi($invoice["payinfo"]);
@@ -90,9 +87,7 @@ foreach ($reservas_sd as $reserva) {
 			if ($th != "") $th .= " + ";
 			$th .= $room["type"];
 		}		
-		/* rcode,sn,vat_8,vat_16,camount,dpayamount,gen_doc_type,get_doc_number,birthdate,first_name,last_name,cash,cc,adults,th */
-		/*echo $rcode . "," . $invoice["sn"] . "," . $vat_8 . "," . $vat_16 . "," . $invoice["camount"] . "," . $invoice["dpayamount"] . "," . $customer[0]["gen_doc_type"] . "," . $customer[0]["gen_doc_number"] . "," . $birthdate . "," . $customer[0]["first_name"] . "," . $customer[0]["last_name"] . "," . $pinfo["cash"] . "," . $pinfo["cc"] . "," . $reserva["adults"] . "," . $th . "\n";*/
-
+		
 		$aud[] = array_map('utf8_encode', array(
 			"rcode" => $rcode,
 			"sn" => $invoice["sn"],
