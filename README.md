@@ -31,4 +31,7 @@ $.post("getInfobR.php", { toDate: td, fromDate: fd }, function(result){
 ```
 ## Example
 `audit.html` is an example using jQuery libraries, to get CSV or Excel spreadsheet.
-Observe you must install excellentexport.min.js, moment-with-locales.min.js and jquery-ui.min.js
+Observe you must install:
+- excellentexport.min.js (https://github.com/jmaister/excellentexport), 
+- moment-with-locales.min.js (http://momentjs.com/)
+- jquery-ui.min.js (https://jqueryui.com/)
